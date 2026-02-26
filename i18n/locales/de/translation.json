@@ -1,0 +1,71 @@
+{
+    "navbar": {
+        "world": "WELT",
+        "live": "LIVE",
+        "mizan": "MIZAN",
+        "search_placeholder": "Suchen...",
+        "copy": "KOPIEREN",
+        "copied": "✓",
+        "session": "SITZUNG",
+        "light_mode": "HELL",
+        "dark_mode": "DUNKEL"
+    },
+    "regions": {
+        "GLOBAL": "GLOBAL",
+        "AMERICAS": "AMERIKA",
+        "MENA": "MENA",
+        "EUROPE": "EUROPA",
+        "ASIA": "ASIEN",
+        "LATIN_AMERICA": "LATEINAMERIKA",
+        "AFRICA": "AFRIKA",
+        "OCEANIA": "OZEANIEN"
+    },
+    "dashboard": {
+        "title": "Globale Situation",
+        "insights": "AT-Einblicke",
+        "markets": "Märkte",
+        "globe": "Globus",
+        "world_map": "Weltkarte",
+        "live_news": "Live-Nachrichten",
+        "live_webcams": "Live-Webcams",
+        "location": "Standort",
+        "source": "Quelle",
+        "open_youtube": "Auf YouTube öffnen",
+        "open": "Öffnen"
+    },
+    "market": {
+        "stable_coins": "Stablecoins",
+        "commodities": "Rohstoffe",
+        "crypto": "Krypto",
+        "tech_stocks": "Tech-Aktien",
+        "economic_news": "Wirtschaftsnachrichten",
+        "market_sectors": "Marktsektoren",
+        "fiat": "FIAT",
+        "market": "MARKT",
+        "web3": "WEB3",
+        "nasdaq": "NASDAQ",
+        "update": "UPDATE",
+        "performance": "PERFORMANCE",
+        "scanning": "Scannen nach globalen Updates...",
+        "loading_sectors": "Lade Sektor-Performance...",
+        "financial": "Finanzen",
+        "technology": "Technologie",
+        "services": "Dienstleistungen"
+    },
+    "common": {
+        "loading": "Laden...",
+        "layers": "EBENEN",
+        "pts": "Pkt",
+        "links": "Links",
+        "all_on": "ALLE AN",
+        "all_off": "ALLE AUS",
+        "reset": "ZURÜCKSETZEN",
+        "inspect": "Klicken Sie auf einen Marker zum Inspizieren",
+        "selected": "Ausgewählt",
+        "loading_map": "Karte wird geladen...",
+        "map_error": "Karte konnte nicht geladen werden (offline?)",
+        "map_controls": "Scrollen zum Zoomen · Ziehen zum Schwenken",
+        "active_locations": "aktive Standorte",
+        "active": "aktiv"
+    }
+}

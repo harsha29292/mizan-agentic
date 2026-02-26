@@ -1,0 +1,71 @@
+{
+    "navbar": {
+        "world": "MONDO",
+        "live": "DAL VIVO",
+        "mizan": "MIZAN",
+        "search_placeholder": "Cerca...",
+        "copy": "COPIA",
+        "copied": "✓",
+        "session": "SESSIONE",
+        "light_mode": "CHIARO",
+        "dark_mode": "SCURO"
+    },
+    "regions": {
+        "GLOBAL": "GLOBALE",
+        "AMERICAS": "AMERICHE",
+        "MENA": "MENA",
+        "EUROPE": "EUROPA",
+        "ASIA": "ASIA",
+        "LATIN_AMERICA": "AMERICA LATINA",
+        "AFRICA": "AFRICA",
+        "OCEANIA": "OCEANIA"
+    },
+    "dashboard": {
+        "title": "Situazione Globale",
+        "insights": "Approfondimenti AT",
+        "markets": "Mercati",
+        "globe": "Globo",
+        "world_map": "Mappa del Mondo",
+        "live_news": "Notizie dal Vivo",
+        "live_webcams": "Webcam dal Vivo",
+        "location": "Posizione",
+        "source": "Fonte",
+        "open_youtube": "Apri su YouTube",
+        "open": "Apri"
+    },
+    "market": {
+        "stable_coins": "Stable Coin",
+        "commodities": "Materie Prime",
+        "crypto": "Cripto",
+        "tech_stocks": "Azioni Tech",
+        "economic_news": "Notizie Economiche",
+        "market_sectors": "Settori di Mercato",
+        "fiat": "FIAT",
+        "market": "MERCATO",
+        "web3": "WEB3",
+        "nasdaq": "NASDAQ",
+        "update": "AGGIORNAMENTO",
+        "performance": "PRESTAZIONE",
+        "scanning": "Scansione aggiornamenti globali...",
+        "loading_sectors": "Caricamento prestazioni settoriali...",
+        "financial": "Finanza",
+        "technology": "Tecnologia",
+        "services": "Servizi"
+    },
+    "common": {
+        "loading": "Caricamento...",
+        "layers": "LIVELLI",
+        "pts": "pti",
+        "links": "link",
+        "all_on": "TUTTO ACCESO",
+        "all_off": "TUTTO SPENTO",
+        "reset": "RESET",
+        "inspect": "Clicca su un indicatore per ispezionare",
+        "selected": "Selezionato",
+        "loading_map": "Caricamento mappa...",
+        "map_error": "Caricamento della mappa fallito (offline?)",
+        "map_controls": "Scorri per zoomare · trascina per spostarti",
+        "active_locations": "posizioni attive",
+        "active": "attivo"
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "navbar": {
+        "world": "العالم",
+        "live": "مباشر",
+        "mizan": "MIZAN",
+        "search_placeholder": "بحث...",
+        "copy": "نسخ",
+        "copied": "✓",
+        "session": "جلسة",
+        "light_mode": "فاتح",
+        "dark_mode": "داكن"
+    },
+    "regions": {
+        "GLOBAL": "عالمي",
+        "AMERICAS": "الأمريكتين",
+        "MENA": "الشرق الأوسط",
+        "EUROPE": "أوروبا",
+        "ASIA": "آسيا",
+        "LATIN_AMERICA": "أمريكا اللاتينية",
+        "AFRICA": "أفريقيا",
+        "OCEANIA": "أوقيانوسيا"
+    },
+    "dashboard": {
+        "title": "الوضع العالمي",
+        "insights": "رؤى AT",
+        "markets": "الأسواق",
+        "globe": "الكرة الأرضية",
+        "world_map": "خريطة العالم",
+        "live_news": "أخبار مباشرة",
+        "live_webcams": "كاميرات مباشرة",
+        "location": "الموقع",
+        "source": "المصدر",
+        "open_youtube": "فتح على يوتيوب",
+        "open": "فتح"
+    },
+    "market": {
+        "stable_coins": "عملات مستقرة",
+        "commodities": "سلع",
+        "crypto": "كريبتو",
+        "tech_stocks": "أسهم تقنية",
+        "economic_news": "أخبار اقتصادية",
+        "market_sectors": "قطاعات السوق",
+        "fiat": "عملات ورقية",
+        "market": "سوق",
+        "web3": "ويب 3",
+        "nasdaq": "ناسداك",
+        "update": "تحديث",
+        "performance": "أداء",
+        "scanning": "جاري مسح التحديثات العالمية...",
+        "loading_sectors": "جاري تحميل أداء القطاعات...",
+        "financial": "مالي",
+        "technology": "تكنولوجي",
+        "services": "خدمات"
+    },
+    "common": {
+        "loading": "جاري التحميل...",
+        "layers": "الطبقات",
+        "pts": "نقاط",
+        "links": "روابط",
+        "all_on": "تشغيل الكل",
+        "all_off": "إيقاف الكل",
+        "reset": "إعادة ضبط",
+        "inspect": "انقر على علامة للفحص",
+        "selected": "محدد",
+        "loading_map": "جاري تحميل الخريطة...",
+        "map_error": "فشل تحميل الخريطة (هل أنت متصل؟)",
+        "map_controls": "التمرير للتكبير · السحب للتحريك",
+        "active_locations": "مواقع نشطة",
+        "active": "نشط"
+    }
+}

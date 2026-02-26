@@ -1,0 +1,71 @@
+{
+    "navbar": {
+        "world": "WORLD",
+        "live": "LIVE",
+        "mizan": "MIZAN",
+        "search_placeholder": "Search...",
+        "copy": "COPY",
+        "copied": "✓",
+        "session": "SESSION",
+        "light_mode": "LIGHT",
+        "dark_mode": "DARK"
+    },
+    "regions": {
+        "GLOBAL": "GLOBAL",
+        "AMERICAS": "AMERICAS",
+        "MENA": "MENA",
+        "EUROPE": "EUROPE",
+        "ASIA": "ASIA",
+        "LATIN_AMERICA": "LATIN AMERICA",
+        "AFRICA": "AFRICA",
+        "OCEANIA": "OCEANIA"
+    },
+    "dashboard": {
+        "title": "Global Situation",
+        "insights": "AT Insights",
+        "markets": "Markets",
+        "globe": "Globe",
+        "world_map": "World Map",
+        "live_news": "Live News",
+        "live_webcams": "Live Webcams",
+        "location": "Location",
+        "source": "Source",
+        "open_youtube": "Open on YouTube",
+        "open": "Open"
+    },
+    "market": {
+        "stable_coins": "Stable Coins",
+        "commodities": "Commodities",
+        "crypto": "Crypto",
+        "tech_stocks": "Tech Stocks",
+        "economic_news": "Economic News",
+        "market_sectors": "Market Sectors",
+        "fiat": "FIAT",
+        "market": "MARKET",
+        "web3": "WEB3",
+        "nasdaq": "NASDAQ",
+        "update": "UPDATE",
+        "performance": "PERFORMANCE",
+        "scanning": "Scanning global updates...",
+        "loading_sectors": "Loading sector performance...",
+        "financial": "Financial",
+        "technology": "Technology",
+        "services": "Services"
+    },
+    "common": {
+        "loading": "Loading...",
+        "layers": "LAYERS",
+        "pts": "pts",
+        "links": "links",
+        "all_on": "ALL ON",
+        "all_off": "ALL OFF",
+        "reset": "RESET",
+        "inspect": "Click a marker to inspect",
+        "selected": "Selected",
+        "loading_map": "Loading map...",
+        "map_error": "Map failed to load (offline?)",
+        "map_controls": "Scroll to zoom · drag to pan",
+        "active_locations": "active locations",
+        "active": "active"
+    }
+}

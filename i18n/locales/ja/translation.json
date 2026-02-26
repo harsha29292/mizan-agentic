@@ -1,0 +1,71 @@
+{
+    "navbar": {
+        "world": "世界",
+        "live": "ライブ",
+        "mizan": "MIZAN",
+        "search_placeholder": "検索...",
+        "copy": "コピー",
+        "copied": "✓",
+        "session": "セッション",
+        "light_mode": "ライト",
+        "dark_mode": "ダーク"
+    },
+    "regions": {
+        "GLOBAL": "グローバル",
+        "AMERICAS": "南北アメリカ",
+        "MENA": "中東・北アフリカ",
+        "EUROPE": "ヨーロッパ",
+        "ASIA": "アジア",
+        "LATIN_ALMERICA": "ラテンアメリカ",
+        "AFRICA": "アフリカ",
+        "OCEANIA": "オセアニア"
+    },
+    "dashboard": {
+        "title": "グローバル状況",
+        "insights": "ATインサイト",
+        "markets": "市場",
+        "globe": "地球儀",
+        "world_map": "世界地図",
+        "live_news": "ライブニュース",
+        "live_webcams": "ライブウェブカメラ",
+        "location": "場所",
+        "source": "情報源",
+        "open_youtube": "YouTubeで開く",
+        "open": "開く"
+    },
+    "market": {
+        "stable_coins": "ステーブルコイン",
+        "commodities": "コモディティ",
+        "crypto": "仮想通貨",
+        "tech_stocks": "ハイテク株",
+        "economic_news": "経済ニュース",
+        "market_sectors": "市場セクター",
+        "fiat": "法定通貨",
+        "market": "市場",
+        "web3": "WEB3",
+        "nasdaq": "ナスダック",
+        "update": "更新",
+        "performance": "パフォーマンス",
+        "scanning": "グローバルアップデートをスキャン中...",
+        "loading_sectors": "セクターパフォーマンスを読み込み中...",
+        "financial": "金融",
+        "technology": "テクノロジー",
+        "services": "サービス"
+    },
+    "common": {
+        "loading": "読み込み中...",
+        "layers": "レイヤー",
+        "pts": "点",
+        "links": "リンク",
+        "all_on": "すべてオン",
+        "all_off": "すべてオフ",
+        "reset": "リセット",
+        "inspect": "マーカーをクリックして詳細を表示",
+        "selected": "選択済み",
+        "loading_map": "地図を読み込み中...",
+        "map_error": "地図の読み込みに失敗しました（オフライン？）",
+        "map_controls": "スクロールでズーム · ドラッグで移動",
+        "active_locations": "のアクティブな場所",
+        "active": "アクティブ"
+    }
+}

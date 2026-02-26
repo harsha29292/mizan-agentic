@@ -1,0 +1,45 @@
+{
+  "layers": [
+    {
+      "id": "stock_exchanges",
+      "label": "Stock Exchanges",
+      "type": "points",
+      "src": "/worldmoniter/stock_exchanges.sample.json",
+      "color": "#f59e0b",
+      "defaultOn": true
+    },
+    {
+      "id": "investments",
+      "label": "Investments",
+      "type": "points",
+      "src": "/worldmoniter/investments.sample.json",
+      "color": "#a78bfa",
+      "defaultOn": true
+    },
+    {
+      "id": "danger_zones",
+      "label": "Earthquakes (Danger Zones)",
+      "type": "points",
+      "src": "/api/worldmoniter/earthquakes",
+      "color": "#ef4444",
+      "defaultOn": true
+    },
+    {
+      "id": "weather_alerts",
+      "label": "Weather Alerts",
+      "type": "points",
+      "src": "/api/worldmoniter/weather",
+      "color": "#f97316",
+      "defaultOn": false
+    },
+    {
+      "id": "conflicts",
+      "label": "Wars / Conflicts",
+      "type": "points",
+      "src": "/api/worldmoniter/conflicts",
+      "color": "#fb7185",
+      "defaultOn": true
+    }
+  ]
+}
+
