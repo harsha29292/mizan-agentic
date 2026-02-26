@@ -50,7 +50,14 @@
         "loading_sectors": "Lade Sektor-Performance...",
         "financial": "Finanzen",
         "technology": "Technologie",
-        "services": "Dienstleistungen"
+        "services": "Dienstleistungen",
+        "markets": "Märkte",
+        "indices": "INDIZES",
+        "crypto_news": "Krypto-News",
+        "predictions": "Prognosen",
+        "ai_signals": "KI-SIGNALE",
+        "hedge_funds": "Hedgefonds",
+        "aum": "AUM"
     },
     "common": {
         "loading": "Laden...",

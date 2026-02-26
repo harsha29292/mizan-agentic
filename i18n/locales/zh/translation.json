@@ -50,7 +50,14 @@
         "loading_sectors": "正在加载板块表现...",
         "financial": "金融",
         "technology": "科技",
-        "services": "服务"
+        "services": "服务",
+        "markets": "市场",
+        "indices": "指数",
+        "crypto_news": "加密新闻",
+        "predictions": "预测",
+        "ai_signals": "AI信号",
+        "hedge_funds": "对冲基金",
+        "aum": "管理规模"
     },
     "common": {
         "loading": "正在加载...",

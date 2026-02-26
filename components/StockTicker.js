@@ -97,60 +97,27 @@ export default function StockTicker({ isDarkMode }) {
   const setWidthRef = useRef(0);
 
   const fetchStockData = useCallback(async () => {
-    const apiKey = process.env.NEXT_PUBLIC_FINNHUB_API_KEY;
-
-    if (!apiKey) {
-      console.warn('Finnhub API key not configured. Using default data.');
-      setLoading(false);
-      return;
-    }
-
     try {
-      // Fetch stocks one by one to handle individual failures gracefully
-      const results = [];
+      const response = await fetch('/api/market/stocks?_t=' + Date.now());
 
-      for (const symbol of STOCK_SYMBOLS) {
-        try {
-          const response = await fetch(
-            `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`
-          );
-
-          if (!response.ok) {
-            // Skip this stock but continue with others
-            console.warn(`Failed to fetch ${symbol}, skipping...`);
-            continue;
-          }
-
-          const data = await response.json();
-
-          // Check if we got valid data (c = current price)
-          if (!data.c || data.c === 0) {
-            console.warn(`No data available for ${symbol}, skipping...`);
-            continue;
-          }
-
-          // Finnhub returns: c=current, d=change, dp=percent change, h=high, l=low, o=open, pc=previous close
-          results.push({
-            symbol,
-            name: getCompanyName(symbol),
-            price: data.c ? data.c.toFixed(2) : '0.00',
-            change: data.d ? data.d.toFixed(2) : '0.00',
-            changePercent: data.dp ? data.dp.toFixed(2) : '0.00',
-          });
-        } catch (stockError) {
-          console.warn(`Error fetching ${symbol}:`, stockError);
-          // Continue with other stocks
-        }
+      if (!response.ok) {
+        console.warn('Stock API returned error:', response.status);
+        setLoading(false);
+        return;
       }
 
-      // Only update if we got at least some data
-      if (results.length > 0) {
-        setStockData(results);
+      const data = await response.json();
+      const stocks = data?.stocks;
+
+      if (Array.isArray(stocks) && stocks.length > 0) {
+        setStockData(stocks);
+        setError(null);
+      } else {
+        console.warn('No stock data returned, keeping previous data.');
       }
       setLoading(false);
-      setError(null);
     } catch (err) {
-      console.error('Error fetching stock data:', err);
+      console.warn('Error fetching stock data:', err.message);
       setError(err.message);
       setLoading(false);
     }
@@ -161,8 +128,8 @@ export default function StockTicker({ isDarkMode }) {
       fetchStockData();
     }, 0);
 
-    // Poll every 10 seconds for real-time updates (respects free tier rate limits)
-    const interval = setInterval(fetchStockData, 10000);
+    // Poll every 30 seconds — server-side route caches and batches, no need to hammer it
+    const interval = setInterval(fetchStockData, 30000);
 
     return () => {
       clearTimeout(initial);

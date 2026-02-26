@@ -50,7 +50,14 @@
         "loading_sectors": "جاري تحميل أداء القطاعات...",
         "financial": "مالي",
         "technology": "تكنولوجي",
-        "services": "خدمات"
+        "services": "خدمات",
+        "markets": "الأسواق",
+        "indices": "مؤشرات",
+        "crypto_news": "أخبار كريبتو",
+        "predictions": "التوقعات",
+        "ai_signals": "إشارات ذكاء",
+        "hedge_funds": "صناديق التحوط",
+        "aum": "حجم الأصول"
     },
     "common": {
         "loading": "جاري التحميل...",

@@ -2,15 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/navigation';
+import LogoAnimation from './logo-animation';
+import { useAppState } from './AppStateContext';
 
-export default function Navbar({ isDarkMode, setIsDarkMode, selectedRegion, setSelectedRegion }) {
+export default function Navbar() {
   const { t, i18n } = useTranslation();
+  const router = useRouter();
+  const { isDarkMode, setIsDarkMode, selectedRegion, setSelectedRegion } = useAppState();
+
   const [activePanel, setActivePanel] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [elapsedTime, setElapsedTime] = useState('00:00:00');
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [selectedLanguageCode, setSelectedLanguageCode] = useState('gb');
+  const [isLogoAnimating, setIsLogoAnimating] = useState(false);
 
   const regions = ['GLOBAL', 'AMERICAS', 'MENA', 'EUROPE', 'ASIA', 'LATIN AMERICA', 'AFRICA', 'OCEANIA'];
   const languages = [
@@ -67,15 +74,11 @@ export default function Navbar({ isDarkMode, setIsDarkMode, selectedRegion, setS
   };
 
   const handleCopyLink = () => {
-    const currentUrl = window.location.href;
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
     navigator.clipboard.writeText(currentUrl).then(() => {
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     });
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -85,7 +88,7 @@ export default function Navbar({ isDarkMode, setIsDarkMode, selectedRegion, setS
         <div className="flex items-center gap-3">
           {/* Company Logo */}
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => router.push('/')}
             className="flex items-center px-1 py-0.5 hover:opacity-80 transition-opacity"
           >
             <img
@@ -147,13 +150,20 @@ export default function Navbar({ isDarkMode, setIsDarkMode, selectedRegion, setS
           </div>
           {/* Mizan Logo */}
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => {
+              if (!isLogoAnimating) {
+                setIsLogoAnimating(true);
+              }
+            }}
             className="flex items-center px-1 py-0.5 hover:opacity-80 transition-opacity ml-1"
           >
-            <img
-              src="/mizan-logo.png"
-              alt="Mizan Logo"
-              className={`h-10 w-auto ${isDarkMode ? '' : 'invert'}`}
+            <LogoAnimation
+              isDarkMode={isDarkMode}
+              trigger={isLogoAnimating}
+              onComplete={() => {
+                setIsLogoAnimating(false);
+                router.push('/');
+              }}
             />
           </button>
 

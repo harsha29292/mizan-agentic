@@ -50,7 +50,14 @@
         "loading_sectors": "セクターパフォーマンスを読み込み中...",
         "financial": "金融",
         "technology": "テクノロジー",
-        "services": "サービス"
+        "services": "サービス",
+        "markets": "市場",
+        "indices": "指数",
+        "crypto_news": "仮想通貨ニュース",
+        "predictions": "予測",
+        "ai_signals": "AIシグナル",
+        "hedge_funds": "ヘッジファンド",
+        "aum": "運用資産"
     },
     "common": {
         "loading": "読み込み中...",

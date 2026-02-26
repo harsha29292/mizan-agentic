@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 const USGS_URL =
-  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson';
+  'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson';
 
 export async function GET() {
   try {
@@ -18,36 +18,36 @@ export async function GET() {
 
     const features = Array.isArray(data?.features)
       ? data.features
-          .map((f) => {
-            const g = f?.geometry;
-            const p = f?.properties ?? {};
-            if (!g || g.type !== 'Point' || !Array.isArray(g.coordinates)) {
-              return null;
-            }
+        .map((f) => {
+          const g = f?.geometry;
+          const p = f?.properties ?? {};
+          if (!g || g.type !== 'Point' || !Array.isArray(g.coordinates)) {
+            return null;
+          }
 
-            const [lng, lat] = g.coordinates;
-            const mag = p.mag ?? p.magnitude;
-            const place = p.place ?? 'Earthquake';
+          const [lng, lat] = g.coordinates;
+          const mag = p.mag ?? p.magnitude;
+          const place = p.place ?? 'Earthquake';
 
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [lng, lat],
-              },
-              properties: {
-                id: p.id ?? f.id ?? `${lat},${lng},${mag ?? ''}`,
-                label: mag ? `M${mag} • ${place}` : place,
-                category: 'danger_zones',
-                color: '#ef4444',
-                value:
-                  typeof mag === 'number'
-                    ? Math.max(0.1, Math.min(mag / 10, 1))
-                    : 0.6,
-              },
-            };
-          })
-          .filter(Boolean)
+          return {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [lng, lat],
+            },
+            properties: {
+              id: p.id ?? f.id ?? `${lat},${lng},${mag ?? ''}`,
+              label: mag ? `M${mag} • ${place}` : place,
+              category: 'danger_zones',
+              color: '#ef4444',
+              value:
+                typeof mag === 'number'
+                  ? Math.max(0.1, Math.min(mag / 10, 1))
+                  : 0.6,
+            },
+          };
+        })
+        .filter(Boolean)
       : [];
 
     return NextResponse.json({

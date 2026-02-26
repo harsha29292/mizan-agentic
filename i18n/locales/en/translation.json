@@ -50,7 +50,15 @@
         "loading_sectors": "Loading sector performance...",
         "financial": "Financial",
         "technology": "Technology",
-        "services": "Services"
+        "services": "Services",
+        "markets": "Markets",
+        "indices": "INDICES",
+        "crypto_news": "Crypto News",
+        "predictions": "Predictions",
+        "ai_signals": "AI SIGNALS",
+        "hedge_funds": "Hedge Funds",
+        "aum": "AUM",
+        "search_asset": "Search asset..."
     },
     "common": {
         "loading": "Loading...",

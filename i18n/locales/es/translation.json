@@ -50,7 +50,14 @@
         "loading_sectors": "Cargando rendimiento de sectores...",
         "financial": "Financiero",
         "technology": "Tecnología",
-        "services": "Servicios"
+        "services": "Servicios",
+        "markets": "Mercados",
+        "indices": "ÍNDICES",
+        "crypto_news": "Noticias Cripto",
+        "predictions": "Predicciones",
+        "ai_signals": "SEÑALES IA",
+        "hedge_funds": "Fondos de Cobertura",
+        "aum": "AUM"
     },
     "common": {
         "loading": "Cargando...",

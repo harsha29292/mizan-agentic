@@ -72,9 +72,9 @@ export function normalizeArcs(input) {
   return [];
 }
 
-export const DEFAULT_LAYERS = [
+export const DEFAULT_LAYERS = [];
 
-];
+// Removed SAMPLE_POINTS and SAMPLE_ARCS to prevent clutter when using real-time data.
 
 // Small placeholder dataset. Replace with your own GeoJSON / arrays.
 export const SAMPLE_POINTS = [
@@ -160,38 +160,48 @@ export default function EarthGlobe({
         const pointsOut = [];
         const arcsOut = [];
 
-        for (const l of cfgLayers) {
-          const type = String(l?.type || '');
-          const src = String(l?.src || '');
-          if (!l?.id || !l?.label || !src || (type !== 'points' && type !== 'arcs')) continue;
+        const layerResults = await Promise.allSettled(
+          cfgLayers.map(async (l) => {
+            const type = String(l?.type || '');
+            const src = String(l?.src || '');
+            if (!l?.id || !l?.label || !src || (type !== 'points' && type !== 'arcs')) return;
 
-          let url = src;
-          if (src.startsWith('/')) {
-            // Absolute path on same origin (e.g. "/api/…", "/worldmoniter/…")
-            url = src;
-          } else if (!/^https?:\/\//i.test(src)) {
-            // Relative path under the same directory as the config file
-            url = `${baseDir}${src}`;
-          }
+            let url = src;
+            if (src.startsWith('/')) {
+              url = src;
+            } else if (!/^https?:\/\//i.test(src)) {
+              url = `${baseDir}${src}`;
+            }
 
-          const res = await fetch(url, { cache: 'no-store' });
-          if (!res.ok) continue;
-          const data = await res.json();
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`Fetch failed for ${l.label}`);
+            const data = await res.json();
 
-          if (type === 'points') {
-            const normalized = normalizePoints(data).map((p) => ({
-              ...p,
-              category: p.category ?? l.id,
-              color: p.color ?? l.color
-            }));
-            pointsOut.push(...normalized);
-          } else {
-            const normalized = normalizeArcs(data).map((a) => ({
-              ...a,
-              category: a.category ?? l.id,
-              color: a.color ?? l.color
-            }));
-            arcsOut.push(...normalized);
+            if (type === 'points') {
+              const normalized = normalizePoints(data).map((p) => ({
+                ...p,
+                category: p.category ?? l.id,
+                color: p.color ?? l.color
+              }));
+              return { type: 'points', data: normalized };
+            } else {
+              const normalized = normalizeArcs(data).map((a) => ({
+                ...a,
+                category: a.category ?? l.id,
+                color: a.color ?? l.color
+              }));
+              return { type: 'arcs', data: normalized };
+            }
+          })
+        );
+
+        for (const res of layerResults) {
+          if (res.status === 'fulfilled' && res.value) {
+            if (res.value.type === 'points') {
+              pointsOut.push(...res.value.data);
+            } else {
+              arcsOut.push(...res.value.data);
+            }
           }
         }
 
@@ -209,24 +219,28 @@ export default function EarthGlobe({
     };
 
     load();
+    const interval = setInterval(load, 60000); // 60s Refresh
+
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, [dataConfigUrl]);
 
   const allPoints = useMemo(() => {
     const remotePoints = normalizePoints(remoteData.points);
     if (remotePoints.length) return remotePoints;
+    if (dataConfigUrl && remoteData.status === 'loading') return []; // Don't show sample data while loading remote
     const userPoints = normalizePoints(points);
-    return userPoints.length ? userPoints : SAMPLE_POINTS;
-  }, [remoteData.points, points]);
+    return userPoints.length ? userPoints : (dataConfigUrl ? [] : SAMPLE_POINTS);
+  }, [remoteData.points, points, dataConfigUrl, remoteData.status]);
 
   const allArcs = useMemo(() => {
     const remoteArcs = normalizeArcs(remoteData.arcs);
     if (remoteArcs.length) return remoteArcs;
     const userArcs = normalizeArcs(arcs);
-    return userArcs.length ? userArcs : SAMPLE_ARCS;
-  }, [remoteData.arcs, arcs]);
+    return userArcs.length ? userArcs : (dataConfigUrl ? [] : SAMPLE_ARCS);
+  }, [remoteData.arcs, arcs, dataConfigUrl]);
 
   const filteredPoints = useMemo(() => {
     return allPoints.filter((p) => enabled[p.category] !== false);

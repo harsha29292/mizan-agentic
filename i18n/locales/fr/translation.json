@@ -50,7 +50,14 @@
         "loading_sectors": "Chargement des performances sectorielles...",
         "financial": "Financier",
         "technology": "Technologie",
-        "services": "Services"
+        "services": "Services",
+        "markets": "Marchés",
+        "indices": "INDICES",
+        "crypto_news": "Actualités Crypto",
+        "predictions": "Prévisions",
+        "ai_signals": "SIGNAUX IA",
+        "hedge_funds": "Hedge Funds",
+        "aum": "AUM"
     },
     "common": {
         "loading": "Chargement...",

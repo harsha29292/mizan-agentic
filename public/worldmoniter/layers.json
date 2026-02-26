@@ -4,7 +4,7 @@
       "id": "stock_exchanges",
       "label": "Stock Exchanges",
       "type": "points",
-      "src": "/worldmoniter/stock_exchanges.sample.json",
+      "src": "/api/worldmoniter/stock-exchanges",
       "color": "#f59e0b",
       "defaultOn": true
     },
@@ -12,7 +12,7 @@
       "id": "investments",
       "label": "Investments",
       "type": "points",
-      "src": "/worldmoniter/investments.sample.json",
+      "src": "/api/worldmoniter/investments",
       "color": "#a78bfa",
       "defaultOn": true
     },
@@ -39,7 +39,22 @@
       "src": "/api/worldmoniter/conflicts",
       "color": "#fb7185",
       "defaultOn": true
+    },
+    {
+      "id": "internet_cables",
+      "label": "Internet Cables",
+      "type": "arcs",
+      "src": "/api/worldmoniter/internet-cables",
+      "color": "#38bdf8",
+      "defaultOn": false
+    },
+    {
+      "id": "water_pipelines",
+      "label": "Water Pipelines",
+      "type": "arcs",
+      "src": "/api/worldmoniter/water-pipelines",
+      "color": "#10b981",
+      "defaultOn": false
     }
   ]
 }
-

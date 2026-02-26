@@ -50,7 +50,14 @@
         "loading_sectors": "Caricamento prestazioni settoriali...",
         "financial": "Finanza",
         "technology": "Tecnologia",
-        "services": "Servizi"
+        "services": "Servizi",
+        "markets": "Mercati",
+        "indices": "INDICI",
+        "crypto_news": "Notizie Cripto",
+        "predictions": "Previsioni",
+        "ai_signals": "SEGNALI AI",
+        "hedge_funds": "Hedge Fund",
+        "aum": "AUM"
     },
     "common": {
         "loading": "Caricamento...",

@@ -9,6 +9,7 @@ import {
   DEFAULT_LAYERS,
   SAMPLE_POINTS,
   normalizePoints,
+  normalizeArcs,
   clamp
 } from './EarthGlobe';
 
@@ -51,7 +52,8 @@ export default function WorldMap({
   const [remoteData, setRemoteData] = useState({
     status: 'idle',
     layers: null,
-    points: null
+    points: null,
+    arcs: null
   });
   const [enabled, setEnabled] = useState(() => {
     const out = {};
@@ -97,55 +99,88 @@ export default function WorldMap({
         const cfgLayers = Array.isArray(cfg?.layers) ? cfg.layers : [];
 
         const pointsOut = [];
+        const arcsOut = [];
 
-        for (const l of cfgLayers) {
-          const type = String(l?.type || '');
-          const src = String(l?.src || '');
-          if (!l?.id || !l?.label || !src || type !== 'points') continue;
+        const layerResults = await Promise.allSettled(
+          cfgLayers.map(async (l) => {
+            const type = String(l?.type || '');
+            const src = String(l?.src || '');
+            if (!l?.id || !l?.label || !src || (type !== 'points' && type !== 'arcs')) return;
 
-          let url = src;
-          if (src.startsWith('/')) {
-            url = src;
-          } else if (!/^https?:\/\//i.test(src)) {
-            url = `${baseDir}${src}`;
+            let url = src;
+            if (src.startsWith('/')) {
+              url = src;
+            } else if (!/^https?:\/\//i.test(src)) {
+              url = `${baseDir}${src}`;
+            }
+
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`Fetch failed for ${l.label}`);
+            const data = await res.json();
+
+            if (type === 'points') {
+              const normalized = normalizePoints(data).map((p) => ({
+                ...p,
+                category: p.category ?? l.id,
+                color: p.color ?? l.color
+              }));
+              return { type: 'points', data: normalized };
+            } else {
+              const normalized = normalizeArcs(data).map((a) => ({
+                ...a,
+                category: a.category ?? l.id,
+                color: a.color ?? l.color
+              }));
+              return { type: 'arcs', data: normalized };
+            }
+          })
+        );
+
+        for (const res of layerResults) {
+          if (res.status === 'fulfilled' && res.value) {
+            if (res.value.type === 'points') {
+              pointsOut.push(...res.value.data);
+            } else {
+              arcsOut.push(...res.value.data);
+            }
           }
-
-          const res = await fetch(url, { cache: 'no-store' });
-          if (!res.ok) continue;
-          const data = await res.json();
-
-          const normalized = normalizePoints(data).map((p) => ({
-            ...p,
-            category: p.category ?? l.id,
-            color: p.color ?? l.color
-          }));
-          pointsOut.push(...normalized);
         }
 
         if (cancelled) return;
         setRemoteData({
           status: 'loaded',
           layers: cfgLayers,
-          points: pointsOut
+          points: pointsOut,
+          arcs: arcsOut
         });
       } catch {
         if (cancelled) return;
-        setRemoteData({ status: 'error', layers: null, points: null });
+        setRemoteData({ status: 'error', layers: null, points: null, arcs: null });
       }
     };
 
     load();
+    const interval = setInterval(load, 60000); // 60s Refresh
+
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, [dataConfigUrl]);
 
   const allPoints = useMemo(() => {
     const remotePoints = normalizePoints(remoteData.points);
     if (remotePoints.length) return remotePoints;
+    if (dataConfigUrl && remoteData.status === 'loading') return [];
     const userPoints = normalizePoints(points);
-    return userPoints.length ? userPoints : SAMPLE_POINTS;
-  }, [remoteData.points, points]);
+    return userPoints.length ? userPoints : (dataConfigUrl ? [] : SAMPLE_POINTS);
+  }, [remoteData.points, points, dataConfigUrl, remoteData.status]);
+
+  const allArcs = useMemo(() => {
+    const remoteArcs = normalizeArcs(remoteData.arcs);
+    // Since there are no SAMPLE_ARCS in WorldMap by default, we just return empty
+    return remoteArcs;
+  }, [remoteData.arcs]);
 
   const filteredPoints = useMemo(
     () => allPoints.filter((p) => enabled[p.category] !== false),
@@ -261,6 +296,30 @@ export default function WorldMap({
 
     return out;
   }, [filteredPoints, projection]);
+
+  const filteredArcs = useMemo(
+    () => allArcs.filter((a) => enabled[a.category] !== false),
+    [allArcs, enabled]
+  );
+
+  const projectedArcs = useMemo(() => {
+    const out = [];
+    if (!projection) return out;
+
+    for (const a of filteredArcs) {
+      const xyStart = projection([Number(a.startLng), Number(a.startLat)]);
+      const xyEnd = projection([Number(a.endLng), Number(a.endLat)]);
+      if (!xyStart || !xyEnd) continue;
+      out.push({
+        ...a,
+        __x1: xyStart[0],
+        __y1: xyStart[1],
+        __x2: xyEnd[0],
+        __y2: xyEnd[1]
+      });
+    }
+    return out;
+  }, [filteredArcs, projection]);
 
   const resetView = () => setView({ k: 1, x: 0, y: 0 });
 
@@ -442,6 +501,23 @@ export default function WorldMap({
                 {borders ? (
                   <path d={pathGen(borders)} fill="none" stroke={theme.border} strokeWidth={0.9 / view.k} />
                 ) : null}
+
+                {projectedArcs.map((a) => {
+                  const color = a.color || (isDarkMode ? 'rgba(56,189,248,0.75)' : 'rgba(37,99,235,0.55)');
+                  return (
+                    <line
+                      key={a.id}
+                      x1={a.__x1}
+                      y1={a.__y1}
+                      x2={a.__x2}
+                      y2={a.__y2}
+                      stroke={color}
+                      strokeWidth={1.5 / view.k}
+                      strokeDasharray={`${4 / view.k} ${4 / view.k}`}
+                      opacity={0.6}
+                    />
+                  );
+                })}
 
                 {projectedPoints.map((p) => {
                   const r = 3.2 + clamp(Number(p.value ?? 0.6), 0.05, 1.0) * 3.5;

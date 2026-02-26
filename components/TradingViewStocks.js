@@ -47,10 +47,12 @@ function TradingViewWidget({ symbol, isDarkMode, index }) {
     );
 }
 
-export default function TradingViewStocks({ isDarkMode = true }) {
+export default function TradingViewStocks({ isDarkMode = true, customSymbols = [] }) {
+    const allSymbols = [...customSymbols, ...STOCK_SYMBOLS];
+
     return (
         <div className={`h-full w-full overflow-y-auto overflow-x-hidden p-3 custom-scrollbar transition-colors ${isDarkMode ? 'bg-black/20' : 'bg-white'}`}>
-            {STOCK_SYMBOLS.map((sym, index) => (
+            {allSymbols.map((sym, index) => (
                 <TradingViewWidget key={`${sym.name}-${index}`} symbol={sym.name} isDarkMode={isDarkMode} index={index} />
             ))}
         </div>
