@@ -7,36 +7,37 @@ import EarthGlobe from "@/components/EarthGlobe";
 import WorldMap from "@/components/WorldMap";
 import MarketDashboard from "@/components/MarketDashboard";
 import { useAppState } from '@/components/AppStateContext';
+import YouTubePlayer from "@/components/YouTubePlayer";
 
 const TIME_RANGES = ['1h', '6h', '24h', '48h', '7d', 'All'];
 
 const NEWS_SOURCES = [
-  { id: 'BLOOMBERG', label: 'Bloomberg', embedUrl: 'https://www.youtube.com/embed/iEpJwprxDdk?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/iEpJwprxDdk' },
-  { id: 'SKYNEWS', label: 'Sky News', embedUrl: 'https://www.youtube.com/embed/JtGYA39G1j8?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/JtGYA39G1j8' },
-  { id: 'EURONEWS', label: 'Euronews', embedUrl: 'https://www.youtube.com/embed/pykpO5kQJ98?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/pykpO5kQJ98' },
-  { id: 'DW', label: 'DW News', embedUrl: 'https://www.youtube.com/embed/LuKwFajn37U?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/LuKwFajn37U' },
-  { id: 'CNBC', label: 'CNBC', embedUrl: 'https://www.youtube.com/embed/9NyxcX3rhQs?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/9NyxcX3rhQs' },
-  { id: 'FRANCE24', label: 'FRANCE 24', embedUrl: 'https://www.youtube.com/embed/Ap-UM1O9RBU?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/Ap-UM1O9RBU' },
-  { id: 'ALJAZEERA', label: 'Al Jazeera', embedUrl: 'https://www.youtube.com/embed/gCNeDWCI0vo?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/gCNeDWCI0vo' }
+  { id: 'BLOOMBERG', label: 'Bloomberg', videoId: 'iEpJwprxDdk', watchUrl: 'https://www.youtube.com/live/iEpJwprxDdk' },
+  { id: 'SKYNEWS', label: 'Sky News', videoId: 'JtGYA39G1j8', watchUrl: 'https://www.youtube.com/live/JtGYA39G1j8' },
+  { id: 'EURONEWS', label: 'Euronews', videoId: 'pykpO5kQJ98', watchUrl: 'https://www.youtube.com/live/pykpO5kQJ98' },
+  { id: 'DW', label: 'DW News', videoId: 'LuKwFajn37U', watchUrl: 'https://www.youtube.com/live/LuKwFajn37U' },
+  { id: 'CNBC', label: 'CNBC', videoId: '9NyxcX3rhQs', watchUrl: 'https://www.youtube.com/live/9NyxcX3rhQs' },
+  { id: 'FRANCE24', label: 'FRANCE 24', videoId: 'Ap-UM1O9RBU', watchUrl: 'https://www.youtube.com/live/Ap-UM1O9RBU' },
+  { id: 'ALJAZEERA', label: 'Al Jazeera', videoId: 'gCNeDWCI0vo', watchUrl: 'https://www.youtube.com/live/gCNeDWCI0vo' }
 ];
 
 const WEBCAM_SOURCES = [
-  { id: 'WASHINGTON', label: 'WASHINGTON', category: 'AMERICAS', embedUrl: 'https://www.youtube.com/embed/1wV9lLe14aU?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/1wV9lLe14aU?si=XryCAt7MIdxv9pWA' },
-  { id: 'KYIV', label: 'KYIV', category: 'EUROPE', embedUrl: 'https://www.youtube.com/embed/-Q7FuPINDjA?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/-Q7FuPINDjA?si=peS67HkGgHmRgof1' },
-  { id: 'JERUSALEM', label: 'JERUSALEM', category: 'MIDEAST', embedUrl: 'https://www.youtube.com/embed/UyduhBUpO7Q?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/UyduhBUpO7Q?si=0HVLNCTtW55htoJ5' },
-  { id: 'SEOUL', label: 'SEOUL', category: 'ASIA', embedUrl: 'https://www.youtube.com/embed/-JhoMGoAfFc?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/-JhoMGoAfFc?si=PDe_f6otUMPdSyjN' },
-  { id: 'LOSANGELES', label: 'LOS ANGELES', category: 'AMERICAS', embedUrl: 'https://www.youtube.com/embed/EO_1LWqsCNE?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/EO_1LWqsCNE?si=jVMeYAWvHMuhmLBW' },
-  { id: 'NYC', label: 'NEW YORK', category: 'AMERICAS', embedUrl: 'https://www.youtube.com/embed/4qyZLflp-sI?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/4qyZLflp-sI?si=q5K1x1FT5_sRt1fi' },
-  { id: 'MIAMI', label: 'MIAMI', category: 'AMERICAS', embedUrl: 'https://www.youtube.com/embed/5YCajRjvWCg?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/5YCajRjvWCg?si=L82Xb2uyY50dssJZ' },
-  { id: 'ODESSA', label: 'ODESSA', category: 'EUROPE', embedUrl: 'https://www.youtube.com/embed/e2gC37ILQmk?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/e2gC37ILQmk?si=luqzv39LBHnCj542' },
-  { id: 'PARIS', label: 'PARIS', category: 'EUROPE', embedUrl: 'https://www.youtube.com/embed/OzYp4NRZlwQ?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/OzYp4NRZlwQ?si=lXr6rQceswEGSqmT' },
-  { id: 'STPETERSBURG', label: 'St.PETERSBURG', category: 'EUROPE', embedUrl: 'https://www.youtube.com/embed/CjtIYbmVfck?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/CjtIYbmVfck?si=IRqPRSXM5UeyXpZr' },
-  { id: 'TEHRAN', label: 'TEHRAN', category: 'MIDEAST', embedUrl: 'https://www.youtube.com/embed/-zGuR1qVKrU?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/-zGuR1qVKrU?si=ViPr7Vo6bWP4K1fO' },
-  { id: 'TELAVIV', label: 'TEL AVIV', category: 'MIDEAST', embedUrl: 'https://www.youtube.com/embed/-VLcYT5QBrY?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/-VLcYT5QBrY?si=jBSZnTPBZan_Kaoq' },
-  { id: 'MECCA', label: 'MECCA', category: 'MIDEAST', embedUrl: 'https://www.youtube.com/embed/4E-iFtUM2kk?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/4E-iFtUM2kk?si=B4A0zJZXVRkRJACc' },
-  { id: 'TAIPEI', label: 'TAIPEI', category: 'ASIA', embedUrl: 'https://www.youtube.com/embed/z_fY1pj1VBw?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/z_fY1pj1VBw?si=5_DfdUpoJANPYHMI' },
-  { id: 'SHANGHAI', label: 'SHANGHAI', category: 'ASIA', embedUrl: 'https://www.youtube.com/embed/6dp-bvQ7RWo?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/6dp-bvQ7RWo?si=J2ubuaJOeVsXMnsj' },
-  { id: 'TOKYO', label: 'TOKYO', category: 'ASIA', embedUrl: 'https://www.youtube.com/embed/4pu9sF5Qssw?autoplay=1&mute=1', watchUrl: 'https://www.youtube.com/live/4pu9sF5Qssw?si=aHB-3MEpaTlJvMA5' },
+  { id: 'WASHINGTON', label: 'WASHINGTON', category: 'AMERICAS', videoId: '1wV9lLe14aU', watchUrl: 'https://www.youtube.com/live/1wV9lLe14aU?si=XryCAt7MIdxv9pWA' },
+  { id: 'KYIV', label: 'KYIV', category: 'EUROPE', videoId: '-Q7FuPINDjA', watchUrl: 'https://www.youtube.com/live/-Q7FuPINDjA?si=peS67HkGgHmRgof1' },
+  { id: 'JERUSALEM', label: 'JERUSALEM', category: 'MIDEAST', videoId: 'UyduhBUpO7Q', watchUrl: 'https://www.youtube.com/live/UyduhBUpO7Q?si=0HVLNCTtW55htoJ5' },
+  { id: 'SEOUL', label: 'SEOUL', category: 'ASIA', videoId: '-JhoMGoAfFc', watchUrl: 'https://www.youtube.com/live/-JhoMGoAfFc?si=PDe_f6otUMPdSyjN' },
+  { id: 'LOSANGELES', label: 'LOS ANGELES', category: 'AMERICAS', videoId: 'EO_1LWqsCNE', watchUrl: 'https://www.youtube.com/live/EO_1LWqsCNE?si=jVMeYAWvHMuhmLBW' },
+  { id: 'NYC', label: 'NEW YORK', category: 'AMERICAS', videoId: '4qyZLflp-sI', watchUrl: 'https://www.youtube.com/live/4qyZLflp-sI?si=q5K1x1FT5_sRt1fi' },
+  { id: 'MIAMI', label: 'MIAMI', category: 'AMERICAS', videoId: '5YCajRjvWCg', watchUrl: 'https://www.youtube.com/live/5YCajRjvWCg?si=L82Xb2uyY50dssJZ' },
+  { id: 'ODESSA', label: 'ODESSA', category: 'EUROPE', videoId: 'e2gC37ILQmk', watchUrl: 'https://www.youtube.com/live/e2gC37ILQmk?si=luqzv39LBHnCj542' },
+  { id: 'PARIS', label: 'PARIS', category: 'EUROPE', videoId: 'OzYp4NRZlwQ', watchUrl: 'https://www.youtube.com/live/OzYp4NRZlwQ?si=lXr6rQceswEGSqmT' },
+  { id: 'STPETERSBURG', label: 'St.PETERSBURG', category: 'EUROPE', videoId: 'CjtIYbmVfck', watchUrl: 'https://www.youtube.com/live/CjtIYbmVfck?si=IRqPRSXM5UeyXpZr' },
+  { id: 'TEHRAN', label: 'TEHRAN', category: 'MIDEAST', videoId: '-zGuR1qVKrU', watchUrl: 'https://www.youtube.com/live/-zGuR1qVKrU?si=ViPr7Vo6bWP4K1fO' },
+  { id: 'TELAVIV', label: 'TEL AVIV', category: 'MIDEAST', videoId: '-VLcYT5QBrY', watchUrl: 'https://www.youtube.com/live/-VLcYT5QBrY?si=jBSZnTPBZan_Kaoq' },
+  { id: 'MECCA', label: 'MECCA', category: 'MIDEAST', videoId: '4E-iFtUM2kk', watchUrl: 'https://www.youtube.com/live/4E-iFtUM2kk?si=B4A0zJZXVRkRJACc' },
+  { id: 'TAIPEI', label: 'TAIPEI', category: 'ASIA', videoId: 'z_fY1pj1VBw', watchUrl: 'https://www.youtube.com/live/z_fY1pj1VBw?si=5_DfdUpoJANPYHMI' },
+  { id: 'SHANGHAI', label: 'SHANGHAI', category: 'ASIA', videoId: '6dp-bvQ7RWo', watchUrl: 'https://www.youtube.com/live/6dp-bvQ7RWo?si=J2ubuaJOeVsXMnsj' },
+  { id: 'TOKYO', label: 'TOKYO', category: 'ASIA', videoId: '4pu9sF5Qssw', watchUrl: 'https://www.youtube.com/live/4pu9sF5Qssw?si=aHB-3MEpaTlJvMA5' },
 ];
 
 const WEBCAM_CATEGORIES = ['ALL', 'MIDEAST', 'EUROPE', 'AMERICAS', 'ASIA'];
@@ -146,7 +147,11 @@ export default function Home() {
           </div>
           <div className="flex-1 flex flex-col bg-black">
             <div className="flex-1">
-              <iframe key={activeNewsSourceId} src={NEWS_SOURCES.find((s) => s.id === activeNewsSourceId)?.embedUrl ?? NEWS_SOURCES[0].embedUrl} className="w-full h-full" title="Live news stream" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen loading="lazy" />
+              <YouTubePlayer
+                key={activeNewsSourceId}
+                videoId={NEWS_SOURCES.find((s) => s.id === activeNewsSourceId)?.videoId ?? NEWS_SOURCES[0].videoId}
+                title="Live news stream"
+              />
             </div>
             <div className={`px-3 py-1.5 border-t text-[10px] flex items-center justify-between ${isDarkMode ? 'border-white/10 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
               <span>{t('dashboard.source')}: <span className={`font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{NEWS_SOURCES.find((s) => s.id === activeNewsSourceId)?.label ?? 'Live channel'}</span></span>
@@ -178,7 +183,12 @@ export default function Home() {
                     className="relative w-full h-full bg-black flex flex-col min-h-0 cursor-pointer hover:ring-2 hover:ring-emerald-400"
                     onClick={() => { setActiveWebcamId(webcam.id); setWebcamViewMode('single'); }}
                   >
-                    <iframe key={webcam.id} src={webcam.embedUrl} className="w-full flex-1 min-h-0 pointer-events-none" title={`${webcam.label} webcam`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen loading="lazy" />
+                    <YouTubePlayer
+                      key={webcam.id}
+                      videoId={webcam.videoId}
+                      className="flex-1"
+                      title={`${webcam.label} webcam`}
+                    />
                     <div className="absolute top-0 left-0 px-1 py-0.5 text-[8px] font-mono text-white bg-transparent truncate flex items-center gap-1">
                       <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping" />
                       <span>{webcam.label}</span>
@@ -193,7 +203,11 @@ export default function Home() {
             ) : (
               <div className="flex-1 flex flex-col h-full">
                 <div className="flex-1">
-                  <iframe key={activeWebcamId} src={activeWebcam.embedUrl} className="w-full h-full" title={`${activeWebcam.label} webcam`} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen loading="lazy" />
+                  <YouTubePlayer
+                    key={activeWebcamId}
+                    videoId={activeWebcam.videoId}
+                    title={`${activeWebcam.label} webcam`}
+                  />
                 </div>
                 <div className={`px-3 py-1.5 border-t text-[10px] flex items-center justify-between ${isDarkMode ? 'border-white/10 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
                   <span>{t('dashboard.location')}: <span className={`font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{activeWebcam.label}</span></span>
