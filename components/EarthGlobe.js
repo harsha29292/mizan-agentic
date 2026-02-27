@@ -100,11 +100,12 @@ export const SAMPLE_POINTS = [
 ];
 
 export const SAMPLE_ARCS = [
-  { id: 'cable_1', startLat: 40.7069, startLng: -74.0113, endLat: 51.5142, endLng: -0.0931, category: 'undersea_cables', color: 'rgba(56,189,248,0.75)', value: 1 },
-  { id: 'cable_2', startLat: 51.5142, startLng: -0.0931, endLat: 1.2903, endLng: 103.8519, category: 'undersea_cables', color: 'rgba(56,189,248,0.65)', value: 0.9 },
-  { id: 'cable_3', startLat: 1.2903, startLng: 103.8519, endLat: 35.6828, endLng: 139.767, category: 'undersea_cables', color: 'rgba(56,189,248,0.6)', value: 0.85 },
+  { id: 'cable_1', startLat: 40.7069, startLng: -74.0113, endLat: 51.5142, endLng: -0.0931, category: 'internet_cables', color: 'rgba(56,189,248,0.85)', value: 1 },
+  { id: 'cable_2', startLat: 51.5142, startLng: -0.0931, endLat: 1.2903, endLng: 103.8519, category: 'internet_cables', color: 'rgba(34,211,238,0.75)', value: 0.9 },
+  { id: 'cable_3', startLat: 1.2903, startLng: 103.8519, endLat: 35.6828, endLng: 139.767, category: 'internet_cables', color: 'rgba(99,102,241,0.70)', value: 0.85 },
 
-  { id: 'pipe_1', startLat: 29.7604, startLng: -95.3698, endLat: 38.8921, endLng: -77.0444, category: 'pipelines', color: 'rgba(34,197,94,0.55)', value: 0.7 }
+  { id: 'pipe_1', startLat: 29.7604, startLng: -95.3698, endLat: 38.8921, endLng: -77.0444, category: 'underground_pipelines', color: 'rgba(249,115,22,0.65)', value: 0.7 },
+  { id: 'pipe_2', startLat: 51.0, startLng: -114.0, endLat: 38.6, endLng: -90.2, category: 'underground_pipelines', color: 'rgba(249,115,22,0.55)', value: 0.65 }
 ];
 
 export default function EarthGlobe({
@@ -155,7 +156,9 @@ export default function EarthGlobe({
         const cfgRes = await fetch(dataConfigUrl, { cache: 'no-store' });
         if (!cfgRes.ok) throw new Error(`Failed to load ${dataConfigUrl} (${cfgRes.status})`);
         const cfg = await cfgRes.json();
-        const cfgLayers = Array.isArray(cfg?.layers) ? cfg.layers : [];
+        const cfgLayers = Array.isArray(cfg?.layers)
+          ? cfg.layers.filter(l => l.hideInGlobe !== true)
+          : [];
 
         const pointsOut = [];
         const arcsOut = [];

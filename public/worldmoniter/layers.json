@@ -49,12 +49,13 @@
       "defaultOn": false
     },
     {
-      "id": "water_pipelines",
-      "label": "Water Pipelines",
+      "id": "underground_pipelines",
+      "label": "Underground Pipelines",
       "type": "arcs",
-      "src": "/api/worldmoniter/water-pipelines",
-      "color": "#10b981",
-      "defaultOn": false
+      "src": "/api/worldmoniter/underground-pipelines",
+      "color": "#f97316",
+      "defaultOn": false,
+      "hideInGlobe": true
     }
   ]
 }

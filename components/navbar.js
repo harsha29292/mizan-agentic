@@ -88,7 +88,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* Company Logo */}
           <button
-            onClick={() => router.push('/blank')}
+            onClick={() => router.push('/')}
             className="flex items-center px-1 py-0.5 hover:opacity-80 transition-opacity"
           >
             <img
