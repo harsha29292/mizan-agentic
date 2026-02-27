@@ -8,7 +8,12 @@ import { useState, useRef, useEffect } from 'react';
  */
 export default function YouTubePlayer({ videoId, className = '', title = 'Video' }) {
     const [isMuted, setIsMuted] = useState(true);
+    const [isMounted, setIsMounted] = useState(false);
     const iframeRef = useRef(null);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     // Function to send commands to YouTube IFrame API via postMessage
     const postCommand = (command, args = []) => {
@@ -30,7 +35,9 @@ export default function YouTubePlayer({ videoId, className = '', title = 'Video'
     };
 
     // Base URL with minimal branding and controls hidden
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`;
+    // We use isMounted to avoid hydration mismatch between server and client
+    const origin = isMounted && typeof window !== 'undefined' ? window.location.origin : '';
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&enablejsapi=1&origin=${origin}`;
 
     return (
         <div className={`relative w-full h-full group bg-black overflow-hidden ${className}`}>
