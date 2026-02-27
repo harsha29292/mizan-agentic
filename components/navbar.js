@@ -88,7 +88,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* Company Logo */}
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push('/blank')}
             className="flex items-center px-1 py-0.5 hover:opacity-80 transition-opacity"
           >
             <img
@@ -162,7 +162,7 @@ export default function Navbar() {
               trigger={isLogoAnimating}
               onComplete={() => {
                 setIsLogoAnimating(false);
-                router.push('/');
+                router.push('/blank');
               }}
             />
           </button>
