@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-74.0113, 40.7069] },
+      "properties": {
+        "id": "nyse",
+        "label": "NYSE",
+        "category": "stock_exchanges",
+        "color": "#f59e0b",
+        "value": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.9855, 40.757] },
+      "properties": {
+        "id": "nasdaq",
+        "label": "NASDAQ",
+        "category": "stock_exchanges",
+        "color": "#f59e0b",
+        "value": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-0.0931, 51.5142] },
+      "properties": {
+        "id": "lse",
+        "label": "London Stock Exchange",
+        "category": "stock_exchanges",
+        "color": "#f59e0b",
+        "value": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [139.767, 35.6828] },
+      "properties": {
+        "id": "tse",
+        "label": "Tokyo Stock Exchange",
+        "category": "stock_exchanges",
+        "color": "#f59e0b",
+        "value": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [114.1588, 22.283] },
+      "properties": {
+        "id": "hkex",
+        "label": "HKEX",
+        "category": "stock_exchanges",
+        "color": "#f59e0b",
+        "value": 1
+      }
+    }
+  ]
+}
+

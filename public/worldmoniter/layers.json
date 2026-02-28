@@ -1,0 +1,61 @@
+{
+  "layers": [
+    {
+      "id": "stock_exchanges",
+      "label": "Stock Exchanges",
+      "type": "points",
+      "src": "/api/worldmoniter/stock-exchanges",
+      "color": "#f59e0b",
+      "defaultOn": true
+    },
+    {
+      "id": "investments",
+      "label": "Investments",
+      "type": "points",
+      "src": "/api/worldmoniter/investments",
+      "color": "#a78bfa",
+      "defaultOn": true
+    },
+    {
+      "id": "danger_zones",
+      "label": "Earthquakes (Danger Zones)",
+      "type": "points",
+      "src": "/api/worldmoniter/earthquakes",
+      "color": "#ef4444",
+      "defaultOn": true
+    },
+    {
+      "id": "weather_alerts",
+      "label": "Weather Alerts",
+      "type": "points",
+      "src": "/api/worldmoniter/weather",
+      "color": "#f97316",
+      "defaultOn": false
+    },
+    {
+      "id": "conflicts",
+      "label": "Wars / Conflicts",
+      "type": "points",
+      "src": "/api/worldmoniter/conflicts",
+      "color": "#fb7185",
+      "defaultOn": true
+    },
+    {
+      "id": "internet_cables",
+      "label": "Internet Cables",
+      "type": "arcs",
+      "src": "/api/worldmoniter/internet-cables",
+      "color": "#38bdf8",
+      "defaultOn": false
+    },
+    {
+      "id": "underground_pipelines",
+      "label": "Underground Pipelines",
+      "type": "arcs",
+      "src": "/api/worldmoniter/underground-pipelines",
+      "color": "#f97316",
+      "defaultOn": false,
+      "hideInGlobe": true
+    }
+  ]
+}
